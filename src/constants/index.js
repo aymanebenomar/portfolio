@@ -6,7 +6,7 @@ export const words = [
 ];
 
 export const words2 = [
-  { text: "Insights", imgPath: "//images/ideas.svg" },
+  { text: "Insights", imgPath: "/images/concepts.svg" },
   { text: "Decisions", imgPath: "/images/ideas.svg" },
   { text: "Concepts", imgPath: "/images/concepts.svg" },
   { text: "Designs", imgPath: "/images/designs.svg" },

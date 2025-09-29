@@ -67,6 +67,12 @@ const hero = () => {
             />
 			</div>
 			</header>
+
+		{/* RIGHT 3D MODEL */}
+		<figure>
+
+		</figure>
+		
 		</div>
 	</section>
   )
