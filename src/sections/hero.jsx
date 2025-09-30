@@ -1,81 +1,74 @@
-import React from 'react'
-import { words } from '../constants'
-import { words2 } from '../constants'
-import Button from '../components/Button'
+import React, { useEffect, useState } from "react";
+import BlurText from "../components/ui/shadcn-io/blur-text";
+import { Star, Target, Rocket, MessageSquare } from "lucide-react"; // icons
 
-const hero = () => {
+// Counter hook for animation
+const useCountUp = (end, duration = 2000) => {
+  const [count, setCount] = useState(0);
+
+  useEffect(() => {
+    let start = 0;
+    const increment = end / (duration / 16); // ~60fps
+    const timer = setInterval(() => {
+      start += increment;
+      if (start >= end) {
+        clearInterval(timer);
+        setCount(end);
+      } else {
+        setCount(Math.floor(start));
+      }
+    }, 16);
+    return () => clearInterval(timer);
+  }, [end, duration]);
+
+  return count;
+};
+
+const Hero = () => {
+  const years = useCountUp(10);
+  const success = useCountUp(92);
+  const projects = useCountUp(100);
+
   return (
-	<section id="hero" className="relative overflow-hidden" >
-		<div className="absolute top-0 left-0 z-10">
-			<img src='/images/bg.png' alt="Background" />
-		</div>
+    <section
+      id="hero"
+      className="relative w-full min-h-screen flex flex-col items-center justify-center overflow-hidden bg-black text-white px-5 md:px-20 font-sans"
+    >
+      {/* Background large text */}
+      <h1 className="absolute text-[8rem] md:text-[12rem] font-extrabold text-white/10 top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 select-none pointer-events-none">
+        FULLSTACK
+      </h1>
 
-		<div className='hero-layout'>
-		{/* LEFT HERO CONTENT */}
-
-		<header className='flex flex-col justify-center md:w-full w-screen md:px-20 px-5'>
-			<div className='flex flex-col gap-7'>
-				<div className='hero-text'>
-					<h1>
-						Turning Coffee Into 
-						<span className="slide">
-							<span className="wrapper">
-								{words.map((word, index) => (
-								<span
-									key={index}
-									className="flex items-center md:gap-3 gap-1 pb-2"
-								>
-									<img
-									src={word.imgPath}
-									alt="person"
-									className="xl:size-12 md:size-10 size-7 md:p-2 p-1 rounded-full bg-white-50"
-									/>
-									<span>{word.text}</span>
-								</span>
-								))}
-							</span>
-							</span>
-						</h1>
-					<h1>
-						And Data Into
-						<span className="slide">
-							<span className="wrapper">
-								{words2.map((word, index) => (
-								<span
-									key={index}
-									className="flex items-center md:gap-3 gap-1 pb-2"
-								>
-									<img
-									src={word.imgPath}
-									alt="person"
-									className="xl:size-12 md:size-10 size-7 md:p-2 p-1 rounded-full bg-white-50"
-									/>
-									<span>{word.text}</span>
-								</span>
-								))}
-							</span>
-							</span>
-					</h1>
-				</div>
-				<p className="text-white-50 md:text-xl relative z-10 pointer-events-none">
-              Benomar Aymane - Moroccan full-stack developer | data engineering student. I build things that work, fix things that don't, and yes, I actually read the documentation. Your project is safe with me.
-            </p>
-			<Button
-              text="See My Work"
-              className="md:w-80 md:h-16 w-60 h-12"
-              id="counter"
+      {/* Profile Picture + Text */}
+      <div className="relative z-10 flex flex-col items-center gap-6">
+        {/* Headlines */}
+        <div className="text-center space-y-2 md:space-y-3 font-[Mona Sans]">
+          <h1 className="text-2xl md:text-5xl font-extrabold bg-gradient-to-r from-cyan-400 to-blue-600 bg-clip-text text-transparent">
+            <BlurText
+              text="Crafting Impactful Experiences"
+              delay={100}
+              animateBy="words"
+              direction="top"
             />
-			</div>
-			</header>
+          </h1>
+          <h1 className="text-2xl md:text-5xl font-extrabold bg-gradient-to-r from-pink-400 to-purple-600 bg-clip-text text-transparent">
+            <BlurText
+              text="Full-Stack Development & Data"
+              delay={300}
+              animateBy="words"
+              direction="top"
+            />
+          </h1>
+        </div>
 
-		{/* RIGHT 3D MODEL */}
-		<figure>
+        {/* Description */}
+        <p className="max-w-3xl text-white/70 text-center md:text-lg mt-4">
+          I build scalable web apps, interactive UIs, and data pipelines, merging
+          creativity and technology to craft experiences that delight users.
+        </p>
+      </div>
+    </section>
+  );
+};
 
-		</figure>
-		
-		</div>
-	</section>
-  )
-}
-
-export default hero
+export default Hero;
