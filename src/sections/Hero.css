@@ -1,0 +1,26 @@
+.moving-text {
+  position: absolute;
+  top: 10%;
+  right: 0;
+  white-space: nowrap;
+  animation: curveMove 12s linear infinite;
+}
+
+/* Motion along a curve using translateX and translateY */
+@keyframes curveMove {
+  0% {
+    transform: translate(100%, 0) translateY(0);
+  }
+  25% {
+    transform: translate(50%, 50px) translateY(50px);
+  }
+  50% {
+    transform: translate(0%, 100px) translateY(100px);
+  }
+  75% {
+    transform: translate(-50%, 50px) translateY(50px);
+  }
+  100% {
+    transform: translate(-100%, 0) translateY(0);
+  }
+}
