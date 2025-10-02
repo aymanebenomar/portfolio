@@ -1,31 +1,93 @@
 import React, { useEffect, useState } from "react";
-import BlurText from "../components/ui/shadcn-io/blur-text";
+import BlurText from "../components/ui/shadcn-io/blur-text.jsx";
 import { motion } from "framer-motion";
-import { ArrowRight } from "lucide-react";
+import { ChevronDown } from "lucide-react";
+import { FiDownload, FiMail } from "react-icons/fi";
 
 const Hero = () => {
   const [offsetY, setOffsetY] = useState(0);
+  const [mousePosition, setMousePosition] = useState({ x: 0, y: 0 });
+  const [displayedText, setDisplayedText] = useState("");
+  const [currentRoleIndex, setCurrentRoleIndex] = useState(0);
 
+  const roles = [
+    'const role = "Full-Stack Developer";',
+    'const role = "Problem Solver";',
+    'const role = "Data Engineer";',
+    'const role = "Builder";',
+  ];
+
+  // Scroll parallax
   useEffect(() => {
     const handleScroll = () => setOffsetY(window.scrollY);
     window.addEventListener("scroll", handleScroll);
     return () => window.removeEventListener("scroll", handleScroll);
   }, []);
 
+  // Mouse spotlight
+  useEffect(() => {
+    const handleMouseMove = (e) => {
+      setMousePosition({ x: e.clientX, y: e.clientY });
+    };
+    window.addEventListener("mousemove", handleMouseMove);
+    return () => window.removeEventListener("mousemove", handleMouseMove);
+  }, []);
+
+  // Terminal typing effect
+  useEffect(() => {
+    let currentText = "";
+    let charIndex = 0;
+    const currentRole = roles[currentRoleIndex];
+
+    const typingInterval = setInterval(() => {
+      if (charIndex < currentRole.length) {
+        currentText += currentRole[charIndex];
+        setDisplayedText(currentText);
+        charIndex++;
+      } else {
+        clearInterval(typingInterval);
+        setTimeout(() => {
+          const deletingInterval = setInterval(() => {
+            if (currentText.length > 0) {
+              currentText = currentText.slice(0, -1);
+              setDisplayedText(currentText);
+            } else {
+              clearInterval(deletingInterval);
+              setCurrentRoleIndex((prev) => (prev + 1) % roles.length);
+            }
+          }, 30);
+        }, 2000);
+      }
+    }, 80);
+
+    return () => clearInterval(typingInterval);
+  }, [currentRoleIndex]);
+
   return (
     <section
       id="hero"
       className="relative w-full min-h-screen flex flex-col items-center justify-center overflow-hidden bg-black text-white px-5 sm:px-10 md:px-20 font-sans"
     >
-      {/* Background FULLSTACK text with parallax */}
+      {/* Background FULLSTACK text with parallax + scale */}
       <motion.h1
-        style={{ y: offsetY * 0.3 }}
-        className="absolute text-[4rem] sm:text-[6rem] md:text-[8rem] lg:text-[12rem] font-extrabold text-white/10 top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 select-none pointer-events-none"
+        style={{
+          y: offsetY * 0.3,
+          scale: 1 + offsetY * 0.0005,
+        }}
+        className="absolute text-[4rem] sm:text-[6rem] md:text-[8rem] lg:text-[12rem] font-extrabold text-white/10 top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 select-none pointer-events-none z-0"
       >
         FULLSTACK
       </motion.h1>
 
-      <div className="relative z-10 flex flex-col items-center gap-6 sm:gap-8">
+      {/* Mouse Spotlight */}
+      <motion.div
+        className="pointer-events-none fixed inset-0 z-30 transition-opacity duration-300"
+        style={{
+          background: `radial-gradient(600px at ${mousePosition.x}px ${mousePosition.y}px, rgba(59, 130, 246, 0.15), transparent 80%)`,
+        }}
+      />
+
+      <div className="relative z-10 flex flex-col items-center gap-6 sm:gap-8 w-full max-w-[95%]">
         {/* Open to opportunities badge */}
         <motion.div
           initial={{ opacity: 0, y: -20 }}
@@ -45,23 +107,13 @@ const Hero = () => {
           initial={{ opacity: 0, y: -20 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 1, delay: 0.2 }}
-          className="text-center space-y-1 sm:space-y-2 md:space-y-3 font-[Mona Sans]"
+          className="text-center space-y-1 sm:space-y-2 md:space-y-3 w-full"
         >
-          <h1 className="text-xl sm:text-2xl md:text-4xl lg:text-5xl font-extrabold bg-gradient-to-r from-cyan-400 to-blue-600 bg-clip-text text-transparent">
-            <BlurText
-              text="Crafting Impactful Experiences"
-              delay={100}
-              animateBy="words"
-              direction="top"
-            />
+          <h1 className="text-xl sm:text-2xl md:text-4xl lg:text-5xl font-extrabold bg-gradient-to-r from-cyan-400 to-blue-600 bg-clip-text text-transparent break-words">
+            <BlurText text="Crafting Impactful Experiences" delay={100} animateBy="words" direction="top" />
           </h1>
-          <h1 className="text-xl sm:text-2xl md:text-4xl lg:text-5xl font-extrabold bg-gradient-to-r from-pink-400 to-purple-600 bg-clip-text text-transparent">
-            <BlurText
-              text="Full-Stack Development & Data"
-              delay={300}
-              animateBy="words"
-              direction="top"
-            />
+          <h1 className="text-xl sm:text-2xl md:text-4xl lg:text-5xl font-extrabold bg-gradient-to-r from-pink-400 to-purple-600 bg-clip-text text-transparent break-words">
+            <BlurText text="Full-Stack Development & Data" delay={300} animateBy="words" direction="top" />
           </h1>
         </motion.div>
 
@@ -70,31 +122,54 @@ const Hero = () => {
           initial={{ opacity: 0, y: 10 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 1, delay: 0.5 }}
-          className="flex flex-col items-center text-center -mt-2 sm:-mt-4"
+          className="flex flex-col items-center text-center -mt-2 sm:-mt-4 w-full"
         >
-          <h1 className="text-2xl sm:text-3xl md:text-4xl lg:text-6xl font-bold">
-            Hey, <span className="italic font-semibold">I’m Aymane.</span>
+          <h1 className="text-2xl sm:text-3xl md:text-4xl lg:text-6xl">
+            <span className="font-bold">Hey,</span>{" "}
+            <span className="italic font-light">I'm Aymane.</span>
           </h1>
-          <p className="text-white/70 text-sm sm:text-base md:text-lg lg:text-xl max-w-xs sm:max-w-md md:max-w-lg mt-2 sm:mt-4">
-            Moroccan full-stack developer | data engineering student. I build
-            things that work, fix things that don't, and yes, I actually read
-            the documentation.
+          <p className="text-white/70 text-sm sm:text-base md:text-lg lg:text-xl max-w-xs sm:max-w-md md:max-w-lg mt-2 sm:mt-4 break-words">
+            Moroccan full-stack developer | data engineering student. I build things that work, fix things that don't, and yes, I actually read the documentation.
           </p>
 
-          {/* Buttons */}
-          <div className="flex flex-wrap gap-3 sm:gap-5 mt-4 sm:mt-6 justify-center md:justify-start">
+          {/* Terminal */}
+          <div className="bg-black/70 backdrop-blur-sm border border-gray-700 rounded-lg w-[95%] max-w-md mx-auto mt-6 shadow-lg">
+            <div className="flex gap-2 px-3 py-2 border-b border-gray-700">
+              <span className="h-3 w-3 rounded-full bg-red-500"></span>
+              <span className="h-3 w-3 rounded-full bg-yellow-400"></span>
+              <span className="h-3 w-3 rounded-full bg-green-500"></span>
+            </div>
+            <div className="px-4 py-3 font-mono text-green-400 text-sm sm:text-base text-left break-words">
+              <span className="text-purple-400">{">"}</span> {displayedText}
+              <span className="animate-pulse">|</span>
+            </div>
+          </div>
+
+          {/* Centered Buttons */}
+          <div className="flex flex-wrap gap-3 sm:gap-5 mt-6 justify-center w-full">
             <button className="flex items-center gap-2 px-4 sm:px-6 py-2 sm:py-3 rounded-md bg-white text-black font-medium hover:bg-black hover:text-white transition-all duration-300 text-sm sm:text-base">
-              Resume <ArrowRight size={16} />
+              <FiDownload /> Resume
             </button>
-            <button className="relative flex items-center gap-2 px-4 sm:px-6 py-2 sm:py-3 rounded-md bg-black text-white font-medium overflow-hidden transition-all duration-300 hover:text-black text-sm sm:text-base">
-              <span className="absolute inset-0 bg-gradient-to-r from-purple-400 via-pink-500 to-red-400 animate-rotate opacity-50 blur-lg"></span>
-              <span className="relative flex items-center gap-2 z-10">
-                Get In Touch <ArrowRight size={16} />
-              </span>
+            <button className="flex items-center gap-2 px-4 sm:px-6 py-2 sm:py-3 rounded-md bg-gray-800 text-white font-medium hover:bg-gray-700 transition-all duration-300 text-sm sm:text-base">
+              <FiMail /> Get In Touch
             </button>
           </div>
         </motion.div>
       </div>
+
+      {/* Scroll Indicator */}
+      <motion.div
+        initial={{ opacity: 0 }}
+        animate={{ opacity: 1, y: [0, 10, 0] }}
+        transition={{
+          opacity: { delay: 2 },
+          y: { duration: 2, repeat: Infinity, ease: "easeInOut" },
+        }}
+        className="absolute bottom-10 left-1/2 -translate-x-1/2 z-20 flex flex-col items-center gap-2 cursor-pointer"
+      >
+        <span className="text-white/50 text-xs sm:text-sm">Scroll to explore</span>
+        <ChevronDown className="text-white/50" size={24} />
+      </motion.div>
     </section>
   );
 };
