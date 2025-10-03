@@ -45,7 +45,7 @@ const Navbar = () => {
           onClick={() => scrollToSection("hero")}
         >
           <img
-            src="/images/client3.png"
+            src="/images/client2.png"
             alt="logo"
             className="w-10 h-10 rounded-full border border-gray-600"
           />

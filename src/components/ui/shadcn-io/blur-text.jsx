@@ -33,6 +33,7 @@ const BlurText = ({
       ))}
     </span>
   );
+  // Note: Added a small right margin to separate words/letters
 };
 
 export default BlurText;
