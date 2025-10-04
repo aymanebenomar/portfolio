@@ -1,6 +1,12 @@
 import React, { useEffect, useRef, useState } from "react";
 import { motion } from "framer-motion";
-import { FaReact, FaNodeJs, FaPython, FaDatabase, FaGitAlt } from "react-icons/fa";
+import {
+  FaReact,
+  FaNodeJs,
+  FaPython,
+  FaDatabase,
+  FaGitAlt,
+} from "react-icons/fa";
 import { SiTailwindcss, SiPostman } from "react-icons/si";
 
 // Skill Card
@@ -45,11 +51,13 @@ const Marquee = ({ children, speed = 50, direction = "left" }) => {
           animation: `scroll-${direction} ${contentWidth / speed}s linear infinite`,
         }}
       >
-        {[...children, ...children].map((child, idx) => (
-          <div key={idx} className="shrink-0">
-            {child}
-          </div>
-        ))}
+        {React.Children.toArray(children)
+          .concat(React.Children.toArray(children))
+          .map((child, idx) => (
+            <div key={idx} className="shrink-0">
+              {child}
+            </div>
+          ))}
       </div>
 
       <style>
@@ -121,22 +129,53 @@ export default function About() {
         viewport={{ once: true }}
         transition={{ duration: 0.8 }}
       >
-        About Me
+        
       </motion.h2>
 
-      {/* Bio paragraph */}
-      <p className="text-center text-white/70 max-w-3xl mx-auto mb-8">
-        I’m Benomar Aymane, a Moroccan full-stack developer and data engineering student. I build things that work, fix things that don’t, and constantly learn new technologies to bring ideas to life.
-      </p>
+      {/* Photo + Bio Section */}
+      <motion.div
+        className="max-w-6xl mx-auto w-full my-12"
+        initial={{ opacity: 0, scale: 0.95 }}
+        whileInView={{ opacity: 1, scale: 1 }}
+        viewport={{ once: true }}
+        transition={{ duration: 0.8 }}
+      >
+        <div className="flex flex-col md:flex-row items-center gap-8 md:gap-12 bg-gray-900/50 backdrop-blur-sm rounded-2xl p-8 border border-white/10 shadow-2xl">
+          {/* Photo */}
+          <div className="flex-shrink-0">
+            <div className="relative w-48 h-48 md:w-64 md:h-64">
+              <div className="absolute inset-0 bg-gradient-to-br from-blue-500/20 to-purple-500/20 rounded-full blur-xl"></div>
+              <img
+                src="/images/ana.png"  // <-- now pulling from public/images
+                alt="Benomar Aymane - Full-Stack Developer"
+                className="relative w-full h-full rounded-full object-cover border-4 border-white/20 shadow-xl"
+              />
+            </div>
+          </div>
 
-      {/* Skills Logos Marquee (left → right) */}
-      <Marquee speed={30} direction="right">
-        {skills.map((skill, idx) => (
-          <SkillCard key={idx} {...skill} />
-        ))}
-      </Marquee>
+          {/* Bio */}
+          <div className="flex-1 text-center md:text-left">
+            <h3 className="text-2xl md:text-3xl font-bold text-white mb-4">
+              Hi, I'm Benomar Aymane
+            </h3>
+            <p className="text-white/80 text-base md:text-lg leading-relaxed mb-4">
+              I'm a Moroccan full-stack developer and data engineering student
+              passionate about building digital experiences that make a
+              difference. From crafting responsive frontends to architecting
+              robust backends, I thrive on turning complex problems into elegant
+              solutions.
+            </p>
+            <p className="text-white/70 text-sm md:text-base leading-relaxed">
+              When I'm not coding, you'll find me exploring new frameworks,
+              contributing to open source, or diving deep into data pipelines. I
+              believe in continuous learning and collaboration—because the best
+              solutions come from shared knowledge and creative thinking.
+            </p>
+          </div>
+        </div>
+      </motion.div>
 
-      {/* Info Cards Marquee (right → left) */}
+      {/* Info Cards Marquee */}
       <Marquee speed={50} direction="left">
         {aboutCards.map((card, idx) => (
           <InfoCard key={idx} {...card} />
