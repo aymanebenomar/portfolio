@@ -2,11 +2,16 @@ import React from "react";
 import { motion } from "framer-motion";
 import { ExternalLink, Github, Star } from "lucide-react";
 
+// Import your images from src/images
+import AlxImg from "../images/Alx.png";
+import ContentImg from "../images/1337.jpg";
+
 const projects = [
   {
     title: "E-Commerce Platform",
-    description: "Full-stack e-commerce solution with payment integration, product management, and real-time inventory tracking.",
-    image: "./src/images/Alx.png",
+    description:
+      "Full-stack e-commerce solution with payment integration, product management, and real-time inventory tracking.",
+    image: AlxImg,
     tech: ["React", "Node.js", "MongoDB", "Stripe"],
     liveUrl: "#",
     githubUrl: "#",
@@ -15,8 +20,9 @@ const projects = [
   },
   {
     title: "AI Content Generator",
-    description: "Python-based tool that uses GPT models to generate marketing content, blogs, and social media posts.",
-    image: "./src/images/1337.jpg",
+    description:
+      "Python-based tool that uses GPT models to generate marketing content, blogs, and social media posts.",
+    image: ContentImg,
     tech: ["Python", "OpenAI", "Flask", "React"],
     liveUrl: "#",
     githubUrl: "#",
@@ -50,7 +56,8 @@ export default function Projects() {
             Featured Projects
           </h2>
           <p className="text-white/60 text-lg max-w-2xl mx-auto">
-            A collection of my recent work spanning full-stack development, AI integrations, and data engineering
+            A collection of my recent work spanning full-stack development, AI
+            integrations, and data engineering
           </p>
         </motion.div>
 
@@ -63,7 +70,11 @@ export default function Projects() {
               initial={{ opacity: 0, y: 60 }}
               whileInView={{ opacity: 1, y: 0 }}
               viewport={{ once: true, margin: "-50px" }}
-              transition={{ duration: 0.8, ease: "easeOut", delay: index * 0.1 }}
+              transition={{
+                duration: 0.8,
+                ease: "easeOut",
+                delay: index * 0.1,
+              }}
             >
               {/* Card Container */}
               <div className="relative bg-gray-900/90 rounded-3xl overflow-hidden border border-white/10 shadow-2xl">
