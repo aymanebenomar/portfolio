@@ -10,7 +10,6 @@ import {
 import { SiTailwindcss, SiPostman } from "react-icons/si";
 import anaImg from "../images/ana.png";
 
-// Skill Card
 const SkillCard = ({ icon, name }) => (
   <div className="w-28 h-28 bg-gray-900 border border-white/10 shadow-lg rounded-xl flex flex-col items-center justify-center gap-2">
     <div className="text-4xl text-white">{icon}</div>
@@ -18,7 +17,6 @@ const SkillCard = ({ icon, name }) => (
   </div>
 );
 
-// Info Card
 const InfoCard = ({ title, description }) => (
   <div className="w-80 p-6 bg-gray-900 rounded-xl border border-white/10 shadow-lg flex flex-col items-center text-center gap-4">
     <h3 className="text-xl font-semibold text-white">{title}</h3>
@@ -26,14 +24,24 @@ const InfoCard = ({ title, description }) => (
   </div>
 );
 
-// Continuous Marquee Component
+/* Continuous Marquee Component */
 const Marquee = ({ children, speed = 50, direction = "left" }) => {
   const [contentWidth, setContentWidth] = useState(0);
+  const [isMobile, setIsMobile] = useState(false);
   const contentRef = useRef(null);
+
+  useEffect(() => {
+    const handleResize = () => setIsMobile(window.innerWidth < 768);
+    handleResize();
+    window.addEventListener("resize", handleResize);
+    return () => window.removeEventListener("resize", handleResize);
+  }, []);
 
   useEffect(() => {
     if (contentRef.current) setContentWidth(contentRef.current.scrollWidth);
   }, [children]);
+
+  const adjustedSpeed = isMobile ? speed * 7 : speed;
 
   return (
     <div
@@ -43,13 +51,14 @@ const Marquee = ({ children, speed = 50, direction = "left" }) => {
           "linear-gradient(to right, rgba(0,0,0,0), rgba(0,0,0,1) 10%, rgba(0,0,0,1) 90%, rgba(0,0,0,0))",
         WebkitMaskImage:
           "linear-gradient(to right, rgba(0,0,0,0), rgba(0,0,0,1) 10%, rgba(0,0,0,1) 90%, rgba(0,0,0,0))",
+        opacity: isMobile ? 0.85 : 1,
       }}
     >
       <div
         ref={contentRef}
         className="flex gap-6 min-w-full"
         style={{
-          animation: `scroll-${direction} ${contentWidth / speed}s linear infinite`,
+          animation: `scroll-${direction} ${contentWidth / adjustedSpeed}s linear infinite`,
         }}
       >
         {React.Children.toArray(children)
@@ -75,9 +84,9 @@ const Marquee = ({ children, speed = 50, direction = "left" }) => {
       </style>
     </div>
   );
-};
+}
 
-// Main About Component
+/* Main About Component */
 export default function About() {
   const skills = [
     { name: "React", icon: <FaReact /> },
@@ -130,7 +139,7 @@ export default function About() {
         viewport={{ once: true }}
         transition={{ duration: 0.8 }}
       >
-        
+        About Me
       </motion.h2>
 
       {/* Photo + Bio Section */}
@@ -147,7 +156,7 @@ export default function About() {
             <div className="relative w-48 h-48 md:w-64 md:h-64">
               <div className="absolute inset-0 bg-gradient-to-br from-blue-500/20 to-purple-500/20 rounded-full blur-xl"></div>
               <img
-                src={anaImg}  // <-- now pulling from public/images
+                src={anaImg}
                 alt="Benomar Aymane - Full-Stack Developer"
                 className="relative w-full h-full rounded-full object-cover border-4 border-white/20 shadow-xl"
               />
@@ -163,8 +172,7 @@ export default function About() {
               I'm a Moroccan full-stack developer and data engineering student
               passionate about building digital experiences that make a
               difference. From crafting responsive frontends to architecting
-              robust backends, I thrive on turning complex problems into elegant
-              solutions.
+              robust backends.
             </p>
             <p className="text-white/70 text-sm md:text-base leading-relaxed">
               When I'm not coding, you'll find me exploring new frameworks,
