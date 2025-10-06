@@ -5,8 +5,8 @@ import { motion, useScroll, useTransform } from "framer-motion";
 const experiences = [
   {
     logo: "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/react/react-original.svg",
-    title: "Full Stack Developer (Student)",
-    company: "Self Learning",
+    title: "Full Stack Developer - Student",
+    company: "ISTA",
     date: "2024 - Present",
     responsibilities: [
       "Building full-stack projects using React, Node.js, and MongoDB.",
@@ -27,9 +27,9 @@ const experiences = [
   },
   {
     logo: "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/c/c-original.svg",
-    title: "1337 School — Piscine",
+    title: "1337 Coding School",
     company: "Software Engineering Bootcamp",
-    date: "2023",
+    date: "2025",
     responsibilities: [
       "Completed the 1337 Piscine, an intensive month-long C programming bootcamp.",
       "Practiced problem-solving, teamwork, and peer code reviews.",
@@ -40,7 +40,7 @@ const experiences = [
     logo: "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/python/python-original.svg",
     title: "Freelance Project — Python Developer",
     company: "Independent",
-    date: "2023 - 2024",
+    date: "2024",
     responsibilities: [
       "Built automation tools, data scripts, and AI-powered applications.",
       "Developed backend utilities and APIs using Python and Flask.",

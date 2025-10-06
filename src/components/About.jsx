@@ -8,6 +8,7 @@ import {
   FaGitAlt,
 } from "react-icons/fa";
 import { SiTailwindcss, SiPostman } from "react-icons/si";
+import anaImg from "../images/ana.png";
 
 // Skill Card
 const SkillCard = ({ icon, name }) => (
@@ -146,7 +147,7 @@ export default function About() {
             <div className="relative w-48 h-48 md:w-64 md:h-64">
               <div className="absolute inset-0 bg-gradient-to-br from-blue-500/20 to-purple-500/20 rounded-full blur-xl"></div>
               <img
-                src="/images/ana.png"  // <-- now pulling from public/images
+                src={anaImg}  // <-- now pulling from public/images
                 alt="Benomar Aymane - Full-Stack Developer"
                 className="relative w-full h-full rounded-full object-cover border-4 border-white/20 shadow-xl"
               />

@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from "react";
 import { Menu, X } from "lucide-react";
+import anajojImg from "../images/anajoj.jpeg";
 
 const Navbar = () => {
   const [scrolled, setScrolled] = useState(false);
@@ -45,7 +46,7 @@ const Navbar = () => {
           onClick={() => scrollToSection("hero")}
         >
           <img
-            src="/images/client4.png"
+            src={anajojImg}
             alt="logo"
             className="w-10 h-10 rounded-full border border-gray-600"
           />
