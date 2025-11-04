@@ -1,11 +1,10 @@
-import React, { useState } from "react";
-import { motion, AnimatePresence } from "framer-motion";
-import { X } from "lucide-react";
+import React from "react";
+import { motion } from "framer-motion";
+import { Github, ExternalLink } from "lucide-react"; // Icons for GitHub & Live Demo
 
 import AlxImg from "../images/spotify.png";
 import WeatherImg from "../images/wethe.jpeg";
-import Portfolio from "../images/portfolio.png";
-
+import gym from "../images/elitefit.png";
 
 const projects = [
   {
@@ -19,12 +18,12 @@ const projects = [
     featured: true,
   },
   {
-    title: "Portfolio",
-    description: `A responsive weather web application built with HTML, CSS, and JavaScript. It fetches real-time weather data from the Weather API and displays the current weather, forecast, and additional information in a clean, interactive interface. The app demonstrates API integration, DOM manipulation, and dynamic UI updates.`,
-    images: [Portfolio],
-    tech: ["HTML", "CSS", "JavaScript", "Weather API"],
-    liveUrl: "https://weatherapp-mu-smoky-24.vercel.app",
-    githubUrl: "https://github.com/aymanebenomar/Weather_WebApp.git",
+    title: "Elitefit Gym Website",
+    description: `Elitefit is a modern, fully responsive gym website built with React, Vite, and Tailwind CSS. It integrates Supabase for managing memberships, class schedules, and contact forms. The design is sleek, mobile-friendly, and interactive, showcasing modern frontend techniques and full-stack integration.`,
+    images: [gym],
+    tech: ["React", "Vite", "Tailwind CSS", "Supabase", "JavaScript"],
+    liveUrl: "https://your-gym-website.vercel.app",
+    githubUrl: "https://github.com/aymanebenomar/elitefit-website",
     status: "Live",
     featured: true,
   },
@@ -37,18 +36,10 @@ const projects = [
     githubUrl: "https://github.com/aymanebenomar/Weather_WebApp.git",
     status: "Live",
     featured: true,
-  }
+  },
 ];
 
 export default function Projects() {
-  const [selectedProject, setSelectedProject] = useState(null);
-
-  const openProject = (project) => {
-    setSelectedProject(project);
-  };
-
-  const closeProject = () => setSelectedProject(null);
-
   return (
     <section
       id="projects"
@@ -71,12 +62,11 @@ export default function Projects() {
           </p>
         </motion.div>
 
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+        <div className="grid grid-cols-1 sm:grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
           {projects.map((project, index) => (
             <motion.div
               key={index}
-              className="group relative cursor-pointer"
-              onClick={() => openProject(project)}
+              className="relative flex flex-col"
               initial={{ opacity: 0, y: 60 }}
               whileInView={{ opacity: 1, y: 0 }}
               viewport={{ once: true, margin: "-50px" }}
@@ -86,7 +76,7 @@ export default function Projects() {
                 delay: index * 0.1,
               }}
             >
-              <div className="relative bg-gray-900/90 rounded-3xl overflow-hidden border border-white/10 shadow-2xl">
+              <div className="relative bg-gray-900/90 rounded-3xl overflow-hidden border border-white/10 shadow-2xl flex flex-col justify-between h-full">
                 {project.status && (
                   <div
                     className={`absolute top-4 right-4 z-20 px-3 py-1.5 rounded-full text-xs font-semibold shadow-lg ${
@@ -102,7 +92,7 @@ export default function Projects() {
                 )}
 
                 {/* Card Image */}
-                <div className="relative overflow-hidden rounded-t-3xl h-48 md:h-56 lg:h-64">
+                <div className="relative overflow-hidden rounded-t-3xl h-48 sm:h-52 md:h-56 lg:h-64">
                   <motion.img
                     src={project.images[0]}
                     alt={project.title}
@@ -112,11 +102,13 @@ export default function Projects() {
                   />
                 </div>
 
-                <div className="relative p-6 space-y-4">
+                {/* Card Content */}
+                <div className="relative p-6 space-y-4 flex flex-col flex-grow">
                   <h3 className="text-2xl font-bold text-white">{project.title}</h3>
-                  <p className="text-white/60 text-sm leading-relaxed line-clamp-3">
+                  <p className="text-white/60 text-sm leading-relaxed line-clamp-3 flex-grow">
                     {project.description.split("\n")[0]}
                   </p>
+
                   <div className="flex flex-wrap gap-2 mt-2">
                     {project.tech.map((tech, i) => (
                       <span
@@ -127,70 +119,35 @@ export default function Projects() {
                       </span>
                     ))}
                   </div>
+
+                  {/* Icon Links centered */}
+                  <div className="flex justify-center gap-6 mt-6">
+                    {project.liveUrl && (
+                      <a
+                        href={project.liveUrl}
+                        target="_blank"
+                        rel="noopener noreferrer"
+                        className="text-blue-500 hover:text-blue-400 transition-colors"
+                      >
+                        <ExternalLink size={28} />
+                      </a>
+                    )}
+                    {project.githubUrl && (
+                      <a
+                        href={project.githubUrl}
+                        target="_blank"
+                        rel="noopener noreferrer"
+                        className="text-gray-300 hover:text-white transition-colors"
+                      >
+                        <Github size={28} />
+                      </a>
+                    )}
+                  </div>
                 </div>
               </div>
             </motion.div>
           ))}
         </div>
-
-        {/* Modal */}
-        <AnimatePresence>
-          {selectedProject && (
-            <motion.div
-              className="fixed inset-0 z-50 bg-black/90 flex items-center justify-center p-6"
-              initial={{ opacity: 0 }}
-              animate={{ opacity: 1 }}
-              exit={{ opacity: 0 }}
-            >
-              <motion.div
-                className="relative bg-gray-900 rounded-3xl max-w-3xl w-full p-6 overflow-auto"
-                initial={{ scale: 0.8 }}
-                animate={{ scale: 1 }}
-                exit={{ scale: 0.8 }}
-              >
-                <button
-                  className="absolute top-4 right-4 p-2 bg-white/20 rounded-full"
-                  onClick={closeProject}
-                >
-                  <X className="w-5 h-5" />
-                </button>
-
-                <h2 className="text-3xl font-bold mb-4 text-center">
-                  {selectedProject.title}
-                </h2>
-
-                {/* Description */}
-                <div className="bg-black rounded-2xl p-6 text-center text-white/90">
-                  <p className="text-sm leading-relaxed">{selectedProject.description}</p>
-                </div>
-
-                {/* Links */}
-                <div className="flex justify-center gap-4 mt-4 flex-wrap">
-                  {selectedProject.githubUrl && (
-                    <a
-                      href={selectedProject.githubUrl}
-                      target="_blank"
-                      rel="noopener noreferrer"
-                      className="px-4 py-2 bg-gray-700 rounded-lg"
-                    >
-                      GitHub
-                    </a>
-                  )}
-                  {selectedProject.liveUrl && (
-                    <a
-                      href={selectedProject.liveUrl}
-                      target="_blank"
-                      rel="noopener noreferrer"
-                      className="px-4 py-2 bg-blue-600 rounded-lg"
-                    >
-                      Live Demo
-                    </a>
-                  )}
-                </div>
-              </motion.div>
-            </motion.div>
-          )}
-        </AnimatePresence>
       </motion.div>
     </section>
   );
