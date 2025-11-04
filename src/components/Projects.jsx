@@ -3,7 +3,9 @@ import { motion, AnimatePresence } from "framer-motion";
 import { X } from "lucide-react";
 
 import AlxImg from "../images/spotify.png";
-import WeatherImg from "../images/wethe.jpeg"; // Replace with your weather app screenshot
+import WeatherImg from "../images/wethe.jpeg";
+import Portfolio from "../images/portfolio.png";
+
 
 const projects = [
   {
@@ -17,6 +19,16 @@ const projects = [
     featured: true,
   },
   {
+    title: "Portfolio",
+    description: `A responsive weather web application built with HTML, CSS, and JavaScript. It fetches real-time weather data from the Weather API and displays the current weather, forecast, and additional information in a clean, interactive interface. The app demonstrates API integration, DOM manipulation, and dynamic UI updates.`,
+    images: [Portfolio],
+    tech: ["HTML", "CSS", "JavaScript", "Weather API"],
+    liveUrl: "https://weatherapp-mu-smoky-24.vercel.app",
+    githubUrl: "https://github.com/aymanebenomar/Weather_WebApp.git",
+    status: "Live",
+    featured: true,
+  },
+  {
     title: "Weather Web App",
     description: `A responsive weather web application built with HTML, CSS, and JavaScript. It fetches real-time weather data from the Weather API and displays the current weather, forecast, and additional information in a clean, interactive interface. The app demonstrates API integration, DOM manipulation, and dynamic UI updates.`,
     images: [WeatherImg],
@@ -25,7 +37,7 @@ const projects = [
     githubUrl: "https://github.com/aymanebenomar/Weather_WebApp.git",
     status: "Live",
     featured: true,
-  },
+  }
 ];
 
 export default function Projects() {

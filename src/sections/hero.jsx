@@ -2,7 +2,7 @@ import React, { useEffect, useState } from "react";
 import BlurText from "../components/ui/shadcn-io/blur-text.jsx";
 import { motion } from "framer-motion";
 import { ChevronDown } from "lucide-react";
-import { FiDownload, FiMail } from "react-icons/fi";
+import { FiDownload, FiMail, FiGithub, FiLinkedin } from "react-icons/fi";
 
 const Hero = () => {
   const [offsetY, setOffsetY] = useState(0);
@@ -62,6 +62,14 @@ const Hero = () => {
 
     return () => clearInterval(typingInterval);
   }, [currentRoleIndex]);
+
+  // Smooth scroll function
+  const scrollToAbout = () => {
+    const aboutSection = document.getElementById("about");
+    if (aboutSection) {
+      aboutSection.scrollIntoView({ behavior: "smooth" });
+    }
+  };
 
   return (
     <section
@@ -154,18 +162,39 @@ const Hero = () => {
               <FiMail /> Get In Touch
             </button>
           </div>
+
+          {/* LinkedIn & GitHub Icons */}
+          <div className="flex gap-6 mt-4 justify-center">
+            <a
+              href="https://github.com/yourusername"
+              target="_blank"
+              rel="noopener noreferrer"
+              className="text-white hover:text-gray-400 transition-colors duration-300 text-2xl"
+            >
+              <FiGithub />
+            </a>
+            <a
+              href="https://linkedin.com/in/yourusername"
+              target="_blank"
+              rel="noopener noreferrer"
+              className="text-white hover:text-gray-400 transition-colors duration-300 text-2xl"
+            >
+              <FiLinkedin />
+            </a>
+          </div>
         </motion.div>
       </div>
 
-      {/* Scroll Indicator */}
+      {/* Scroll Indicator (clickable) */}
       <motion.div
+        onClick={scrollToAbout}
+        className="absolute bottom-10 left-1/2 -translate-x-1/2 z-20 flex flex-col items-center gap-2 cursor-pointer"
         initial={{ opacity: 0 }}
         animate={{ opacity: 1, y: [0, 10, 0] }}
         transition={{
           opacity: { delay: 2 },
           y: { duration: 2, repeat: Infinity, ease: "easeInOut" },
         }}
-        className="absolute bottom-10 left-1/2 -translate-x-1/2 z-20 flex flex-col items-center gap-2 cursor-pointer"
       >
         <span className="text-white/50 text-xs sm:text-sm">Scroll to explore</span>
         <ChevronDown className="text-white/50" size={24} />

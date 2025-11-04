@@ -119,7 +119,7 @@ export default function Skills() {
       </motion.h2>
 
       <motion.p
-        className="text-center text-white/70 text-base md:text-lg max-w-2xl mx-auto"
+        className="text-center text-white/70 text-base md:text-lg max-w-2xl mx-auto italic"
         initial={{ opacity: 0 }}
         whileInView={{ opacity: 1 }}
         viewport={{ once: true }}

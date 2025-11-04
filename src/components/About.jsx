@@ -20,11 +20,11 @@ const SkillCard = ({ icon, name }) => (
 const InfoCard = ({ title, description }) => (
   <div className="w-80 p-6 bg-gray-900 rounded-xl border border-white/10 shadow-lg flex flex-col items-center text-center gap-4">
     <h3 className="text-xl font-semibold text-white">{title}</h3>
-    <p className="text-white/60 text-sm">{description}</p>
+    <p className="text-white/60 text-sm italic">{description}</p>
   </div>
 );
 
-/* Continuous Marquee Component */
+/* Continuous Marquee Component (Fixed Smooth Infinite Loop) */
 const Marquee = ({ children, speed = 50, direction = "left" }) => {
   const [contentWidth, setContentWidth] = useState(0);
   const [isMobile, setIsMobile] = useState(false);
@@ -51,23 +51,21 @@ const Marquee = ({ children, speed = 50, direction = "left" }) => {
           "linear-gradient(to right, rgba(0,0,0,0), rgba(0,0,0,1) 10%, rgba(0,0,0,1) 90%, rgba(0,0,0,0))",
         WebkitMaskImage:
           "linear-gradient(to right, rgba(0,0,0,0), rgba(0,0,0,1) 10%, rgba(0,0,0,1) 90%, rgba(0,0,0,0))",
-        opacity: isMobile ? 0.85 : 1,
+        opacity: isMobile ? 0.9 : 1,
       }}
     >
       <div
-        ref={contentRef}
-        className="flex gap-6 min-w-full"
+        className="flex gap-6"
         style={{
+          width: "max-content",
           animation: `scroll-${direction} ${contentWidth / adjustedSpeed}s linear infinite`,
         }}
       >
-        {React.Children.toArray(children)
-          .concat(React.Children.toArray(children))
-          .map((child, idx) => (
-            <div key={idx} className="shrink-0">
-              {child}
-            </div>
-          ))}
+        {/* Duplicate content twice to create infinite loop */}
+        <div ref={contentRef} className="flex gap-6">
+          {children}
+        </div>
+        <div className="flex gap-6">{children}</div>
       </div>
 
       <style>
@@ -84,7 +82,7 @@ const Marquee = ({ children, speed = 50, direction = "left" }) => {
       </style>
     </div>
   );
-}
+};
 
 /* Main About Component */
 export default function About() {
@@ -139,7 +137,7 @@ export default function About() {
         viewport={{ once: true }}
         transition={{ duration: 0.8 }}
       >
-        About Me
+        
       </motion.h2>
 
       {/* Photo + Bio Section */}
@@ -165,27 +163,21 @@ export default function About() {
 
           {/* Bio */}
           <div className="flex-1 text-center md:text-left">
-            <h3 className="text-2xl md:text-3xl font-bold text-white mb-4">
-              Hi, I'm Benomar Aymane
+            <h3 className="text-2xl md:text-3xl italic font-light text-white mb-4 ">
+              <span className="font-bold">Hey,</span> I'm Benomar Aymane
             </h3>
-            <p className="text-white/80 text-base md:text-lg leading-relaxed mb-4">
+            <p className="text-white/80 text-base md:text-lg leading-relaxed mb-4 italic">
               I'm a Moroccan full-stack developer and data engineering student
               passionate about building digital experiences that make a
               difference. From crafting responsive frontends to architecting
               robust backends.
-            </p>
-            <p className="text-white/70 text-sm md:text-base leading-relaxed">
-              When I'm not coding, you'll find me exploring new frameworks,
-              contributing to open source, or diving deep into data pipelines. I
-              believe in continuous learning and collaboration—because the best
-              solutions come from shared knowledge and creative thinking.
             </p>
           </div>
         </div>
       </motion.div>
 
       {/* Info Cards Marquee */}
-      <Marquee speed={50} direction="left">
+      <Marquee speed={10} direction="left">
         {aboutCards.map((card, idx) => (
           <InfoCard key={idx} {...card} />
         ))}
