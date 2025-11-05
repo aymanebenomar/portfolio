@@ -164,14 +164,14 @@ export default function Projects() {
         <AnimatePresence>
           {selectedProject && (
             <motion.div
-              className="fixed inset-0 bg-black/70 backdrop-blur-sm flex items-center justify-center z-50 p-6"
+              className="fixed inset-0 bg-black/70 backdrop-blur-sm flex items-center justify-center z-50 p-4"
               initial={{ opacity: 0 }}
               animate={{ opacity: 1 }}
               exit={{ opacity: 0 }}
               onClick={() => setSelectedProject(null)}
             >
               <motion.div
-                className="bg-gray-900 rounded-2xl max-w-2xl w-full p-6 relative border border-white/10 shadow-2xl"
+                className="bg-gray-900 rounded-2xl w-full max-w-xl md:max-w-2xl p-6 relative border border-white/10 shadow-2xl overflow-auto max-h-[90vh]"
                 initial={{ scale: 0.9, opacity: 0 }}
                 animate={{ scale: 1, opacity: 1 }}
                 exit={{ scale: 0.9, opacity: 0 }}
@@ -214,7 +214,7 @@ export default function Projects() {
                   ))}
                 </div>
 
-                {/* Icon Links (No Text) */}
+                {/* Icon Links */}
                 <div className="flex justify-center gap-6">
                   {selectedProject.liveUrl && (
                     <a
