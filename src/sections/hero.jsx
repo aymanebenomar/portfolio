@@ -12,7 +12,6 @@ const Hero = () => {
 
   const roles = [
     'const role = "Full-Stack Developer";',
-    'const role = "Problem Solver";',
     'const role = "Data Engineer";',
     'const role = "Builder";',
   ];
@@ -155,18 +154,28 @@ const Hero = () => {
 
           {/* Centered Buttons */}
           <div className="flex flex-wrap gap-3 sm:gap-5 mt-6 justify-center w-full">
-            <button className="flex items-center gap-2 px-4 sm:px-6 py-2 sm:py-3 rounded-md bg-white text-black font-medium hover:bg-black hover:text-white transition-all duration-300 text-sm sm:text-base">
+            {/* Resume Button */}
+            <a
+              href="/AymaneBenomar_Resume.pdf"
+              download
+              className="flex items-center gap-2 px-4 sm:px-6 py-2 sm:py-3 rounded-md bg-white text-black font-medium hover:bg-black hover:text-white transition-all duration-300 text-sm sm:text-base"
+            >
               <FiDownload /> Resume
-            </button>
-            <button className="flex items-center gap-2 px-4 sm:px-6 py-2 sm:py-3 rounded-md bg-gray-800 text-white font-medium hover:bg-gray-700 transition-all duration-300 text-sm sm:text-base">
+            </a>
+
+            {/* Email Button */}
+            <a
+              href="mailto:aymanebenomar2005@gmail.com"
+              className="flex items-center gap-2 px-4 sm:px-6 py-2 sm:py-3 rounded-md bg-gray-800 text-white font-medium hover:bg-gray-700 transition-all duration-300 text-sm sm:text-base"
+            >
               <FiMail /> Get In Touch
-            </button>
+            </a>
           </div>
 
           {/* LinkedIn & GitHub Icons */}
           <div className="flex gap-6 mt-4 justify-center">
             <a
-              href="https://github.com/yourusername"
+              href="https://github.com/aymanebenomar"
               target="_blank"
               rel="noopener noreferrer"
               className="text-white hover:text-gray-400 transition-colors duration-300 text-2xl"
@@ -174,7 +183,7 @@ const Hero = () => {
               <FiGithub />
             </a>
             <a
-              href="https://linkedin.com/in/yourusername"
+              href="https://linkedin.com/in/benomar-aymane-85b91b380"
               target="_blank"
               rel="noopener noreferrer"
               className="text-white hover:text-gray-400 transition-colors duration-300 text-2xl"

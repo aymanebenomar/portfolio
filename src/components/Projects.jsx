@@ -1,10 +1,11 @@
-import React from "react";
-import { motion } from "framer-motion";
-import { Github, ExternalLink } from "lucide-react"; // Icons for GitHub & Live Demo
+import React, { useState } from "react";
+import { motion, AnimatePresence } from "framer-motion";
+import { Github, ExternalLink, X } from "lucide-react";
 
 import AlxImg from "../images/spotify.png";
 import WeatherImg from "../images/wethe.jpeg";
 import gym from "../images/elitefit.png";
+import dental from "../images/dental.png";
 
 const projects = [
   {
@@ -22,30 +23,32 @@ const projects = [
     description: `Elitefit is a modern, fully responsive gym website built with React, Vite, and Tailwind CSS. It integrates Supabase for managing memberships, class schedules, and contact forms. The design is sleek, mobile-friendly, and interactive, showcasing modern frontend techniques and full-stack integration.`,
     images: [gym],
     tech: ["React", "Vite", "Tailwind CSS", "Supabase", "JavaScript"],
-    liveUrl: "https://your-gym-website.vercel.app",
-    githubUrl: "https://github.com/aymanebenomar/elitefit-website",
-    status: "Live",
+    liveUrl: "https://elitefit.vercel.app/",
+    status: "Done",
     featured: true,
   },
   {
-    title: "Weather Web App",
-    description: `A responsive weather web application built with HTML, CSS, and JavaScript. It fetches real-time weather data from the Weather API and displays the current weather, forecast, and additional information in a clean, interactive interface. The app demonstrates API integration, DOM manipulation, and dynamic UI updates.`,
-    images: [WeatherImg],
-    tech: ["HTML", "CSS", "JavaScript", "Weather API"],
-    liveUrl: "https://weatherapp-mu-smoky-24.vercel.app",
-    githubUrl: "https://github.com/aymanebenomar/Weather_WebApp.git",
-    status: "Live",
+    title: "Dental Website",
+    description: `A modern and responsive dental clinic website built with Next.js, Supabase, and Google APIs. The platform allows patients to pre-register for appointments, while the admin dashboard provides full access to manage pre-registrations and publish blogs or news updates. It features dynamic data handling, authentication, and smooth user experience through real-time database integration and clean UI design.`,
+    images: [dental],
+    tech: ["Next.js", "Supabase", "Google API", "Tailwind CSS"],
+    liveUrl: "",
+    githubUrl: "",
+    status: "In Progress",
     featured: true,
   },
 ];
 
 export default function Projects() {
+  const [selectedProject, setSelectedProject] = useState(null);
+
   return (
     <section
       id="projects"
       className="min-h-screen bg-gradient-to-b from-gray-900 to-black text-white py-20 px-6 md:px-12"
     >
       <motion.div className="max-w-7xl mx-auto">
+        {/* Section Header */}
         <motion.div
           className="text-center mb-16"
           initial={{ opacity: 0, y: -30 }}
@@ -62,11 +65,12 @@ export default function Projects() {
           </p>
         </motion.div>
 
+        {/* Projects Grid */}
         <div className="grid grid-cols-1 sm:grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
           {projects.map((project, index) => (
             <motion.div
               key={index}
-              className="relative flex flex-col"
+              className="relative flex flex-col cursor-pointer"
               initial={{ opacity: 0, y: 60 }}
               whileInView={{ opacity: 1, y: 0 }}
               viewport={{ once: true, margin: "-50px" }}
@@ -75,8 +79,10 @@ export default function Projects() {
                 ease: "easeOut",
                 delay: index * 0.1,
               }}
+              onClick={() => setSelectedProject(project)}
             >
-              <div className="relative bg-gray-900/90 rounded-3xl overflow-hidden border border-white/10 shadow-2xl flex flex-col justify-between h-full">
+              <div className="relative bg-gray-900/90 rounded-3xl overflow-hidden border border-white/10 shadow-2xl flex flex-col justify-between h-full hover:shadow-blue-500/20 transition">
+                {/* Status Badge */}
                 {project.status && (
                   <div
                     className={`absolute top-4 right-4 z-20 px-3 py-1.5 rounded-full text-xs font-semibold shadow-lg ${
@@ -84,7 +90,7 @@ export default function Projects() {
                         ? "bg-green-600 text-white"
                         : project.status === "Live"
                         ? "bg-green-500/90 text-white"
-                        : "bg-purple-500/90 text-white"
+                        : "bg-orange-500/90 text-white"
                     }`}
                   >
                     {project.status}
@@ -104,11 +110,14 @@ export default function Projects() {
 
                 {/* Card Content */}
                 <div className="relative p-6 space-y-4 flex flex-col flex-grow">
-                  <h3 className="text-2xl font-bold text-white">{project.title}</h3>
+                  <h3 className="text-2xl font-bold text-white">
+                    {project.title}
+                  </h3>
                   <p className="text-white/60 text-sm leading-relaxed line-clamp-3 flex-grow">
                     {project.description.split("\n")[0]}
                   </p>
 
+                  {/* Tech Stack */}
                   <div className="flex flex-wrap gap-2 mt-2">
                     {project.tech.map((tech, i) => (
                       <span
@@ -120,7 +129,7 @@ export default function Projects() {
                     ))}
                   </div>
 
-                  {/* Icon Links centered */}
+                  {/* Icon Links */}
                   <div className="flex justify-center gap-6 mt-6">
                     {project.liveUrl && (
                       <a
@@ -128,6 +137,7 @@ export default function Projects() {
                         target="_blank"
                         rel="noopener noreferrer"
                         className="text-blue-500 hover:text-blue-400 transition-colors"
+                        onClick={(e) => e.stopPropagation()}
                       >
                         <ExternalLink size={28} />
                       </a>
@@ -138,6 +148,7 @@ export default function Projects() {
                         target="_blank"
                         rel="noopener noreferrer"
                         className="text-gray-300 hover:text-white transition-colors"
+                        onClick={(e) => e.stopPropagation()}
                       >
                         <Github size={28} />
                       </a>
@@ -148,6 +159,88 @@ export default function Projects() {
             </motion.div>
           ))}
         </div>
+
+        {/* Modal for Full Project Details */}
+        <AnimatePresence>
+          {selectedProject && (
+            <motion.div
+              className="fixed inset-0 bg-black/70 backdrop-blur-sm flex items-center justify-center z-50 p-6"
+              initial={{ opacity: 0 }}
+              animate={{ opacity: 1 }}
+              exit={{ opacity: 0 }}
+              onClick={() => setSelectedProject(null)}
+            >
+              <motion.div
+                className="bg-gray-900 rounded-2xl max-w-2xl w-full p-6 relative border border-white/10 shadow-2xl"
+                initial={{ scale: 0.9, opacity: 0 }}
+                animate={{ scale: 1, opacity: 1 }}
+                exit={{ scale: 0.9, opacity: 0 }}
+                onClick={(e) => e.stopPropagation()}
+              >
+                {/* Close Button */}
+                <button
+                  onClick={() => setSelectedProject(null)}
+                  className="absolute top-3 right-3 text-gray-400 hover:text-white transition"
+                >
+                  <X size={26} />
+                </button>
+
+                {/* Image */}
+                <motion.img
+                  src={selectedProject.images[0]}
+                  alt={selectedProject.title}
+                  className="w-full h-56 object-cover rounded-lg mb-4"
+                />
+
+                {/* Title */}
+                <h3 className="text-3xl font-bold mb-3">
+                  {selectedProject.title}
+                </h3>
+
+                {/* Description */}
+                <p className="text-white/70 text-base leading-relaxed mb-4">
+                  {selectedProject.description}
+                </p>
+
+                {/* Tech Stack */}
+                <div className="flex flex-wrap gap-2 mb-6">
+                  {selectedProject.tech.map((tech, i) => (
+                    <span
+                      key={i}
+                      className="px-3 py-1 text-xs font-semibold bg-white/5 rounded-lg border border-white/10"
+                    >
+                      {tech}
+                    </span>
+                  ))}
+                </div>
+
+                {/* Icon Links (No Text) */}
+                <div className="flex justify-center gap-6">
+                  {selectedProject.liveUrl && (
+                    <a
+                      href={selectedProject.liveUrl}
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      className="text-blue-500 hover:text-blue-400 transition-colors"
+                    >
+                      <ExternalLink size={26} />
+                    </a>
+                  )}
+                  {selectedProject.githubUrl && (
+                    <a
+                      href={selectedProject.githubUrl}
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      className="text-gray-300 hover:text-white transition-colors"
+                    >
+                      <Github size={26} />
+                    </a>
+                  )}
+                </div>
+              </motion.div>
+            </motion.div>
+          )}
+        </AnimatePresence>
       </motion.div>
     </section>
   );

@@ -164,7 +164,7 @@ export default function About() {
           {/* Bio */}
           <div className="flex-1 text-center md:text-left">
             <h3 className="text-2xl md:text-3xl italic font-light text-white mb-4 ">
-              <span className="font-bold">Hey,</span> I'm Benomar Aymane
+              <span className="font-bold">Hey,</span> I'm Benomar Aymane.
             </h3>
             <p className="text-white/80 text-base md:text-lg leading-relaxed mb-4 italic">
               I'm a Moroccan full-stack developer and data engineering student

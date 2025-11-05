@@ -38,7 +38,7 @@ const experiences = [
   },
   {
     logo: "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/python/python-original.svg",
-    title: "Freelance Project — Python Developer",
+    title: "Python Developer",
     company: "Independent",
     date: "2024",
     responsibilities: [

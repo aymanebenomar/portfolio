@@ -19,8 +19,8 @@ const Navbar = () => {
     { id: "hero", label: "Home" },
     { id: "about", label: "About" },
     { id: "skills", label: "Skills" },
-    { id: "projects", label: "Projects" },
     { id: "experience", label: "Experience" },
+    { id: "projects", label: "Projects" },
   ];
 
   const scrollToSection = (id) => {
@@ -65,7 +65,7 @@ const Navbar = () => {
             {navLinks.map((link) => (
               <li
                 key={link.id}
-                className="group cursor-pointer"
+                className="group cursor-pointer transition-colors duration-300 hover:text-blue-400"
                 onClick={() => scrollToSection(link.id)}
               >
                 <span>{link.label}</span>
@@ -76,13 +76,14 @@ const Navbar = () => {
         </nav>
 
         {/* Contact Button (desktop only) */}
-        <div
-          className={`hidden md:flex group transition-all duration-500 ease-in-out ${
+        <a
+          href="mailto:aymanebenomar2005@gmail.com"
+          className={`hidden md:flex group transition-all duration-500 ease-in-out hover:text-blue-400 ${
             scrolled ? "px-2 py-1 text-sm" : "px-4 py-2"
           }`}
         >
           <span>Contact</span>
-        </div>
+        </a>
 
         {/* Mobile Toggler */}
         <button
@@ -104,13 +105,20 @@ const Navbar = () => {
             {navLinks.map((link) => (
               <li
                 key={link.id}
-                className="cursor-pointer"
+                className="cursor-pointer transition-colors duration-300 hover:text-blue-400"
                 onClick={() => scrollToSection(link.id)}
               >
                 {link.label}
               </li>
             ))}
-            <li className="cursor-pointer">Contact</li>
+            <li>
+              <a
+                href="mailto:aymanebenomar2005@gmail.com"
+                className="cursor-pointer transition-colors duration-300 hover:text-blue-400"
+              >
+                Contact
+              </a>
+            </li>
           </ul>
         </div>
       </div>
