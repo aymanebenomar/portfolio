@@ -2,10 +2,9 @@ import React, { useState } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 import { Github, ExternalLink, X } from "lucide-react";
 
-import AlxImg from "../images/spotify.png";
-import WeatherImg from "../images/wethe.jpeg";
-import gym from "../images/elitefit.png";
-import dental from "../images/dental.png";
+import AlxImg from "../images/spoti.png";
+import gym from "../images/finalpicportfolio.png";
+import dental from "../images/finaldental.png";
 
 const projects = [
   {
@@ -32,9 +31,9 @@ const projects = [
     description: `A modern and responsive dental clinic website built with Next.js, Supabase, and Google APIs. The platform allows patients to pre-register for appointments, while the admin dashboard provides full access to manage pre-registrations and publish blogs or news updates. It features dynamic data handling, authentication, and smooth user experience through real-time database integration and clean UI design.`,
     images: [dental],
     tech: ["Next.js", "Supabase", "Google API", "Tailwind CSS"],
-    liveUrl: "",
+    liveUrl: "https://dentist-website-murex.vercel.app",
     githubUrl: "",
-    status: "In Progress",
+    status: "Done",
     featured: true,
   },
 ];
@@ -184,13 +183,6 @@ export default function Projects() {
                 >
                   <X size={26} />
                 </button>
-
-                {/* Image */}
-                <motion.img
-                  src={selectedProject.images[0]}
-                  alt={selectedProject.title}
-                  className="w-full h-56 object-cover rounded-lg mb-4"
-                />
 
                 {/* Title */}
                 <h3 className="text-3xl font-bold mb-3">

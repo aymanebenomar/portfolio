@@ -1,15 +1,11 @@
 @import url("https://fonts.googleapis.com/css2?family=Mona+Sans:ital,wght@0,200..900;1,200..900&display=swap");
-@import "tailwindcss";
 @import url('https://fonts.googleapis.com/css2?family=Great+Vibes&display=swap');
+@import "tailwindcss";
+
 
 .font-crystal {
   font-family: 'Great Vibes', cursive;
 }
-
-
-
-
-
 
 @keyframes float0 {
   0%, 100% { transform: translateY(0) rotate(0deg); }
@@ -32,17 +28,6 @@
 .animate-float1 { animation: float1 5s ease-in-out infinite; }
 .animate-float2 { animation: float2 7s ease-in-out infinite; }
 .animate-float3 { animation: float3 6.5s ease-in-out infinite; }
-
-
-
-
-
-
-
-
-
-
-
 
 :root {
   --gradient: radial-gradient(circle, #e5e5e5 0%, #fff 100%);
